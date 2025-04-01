@@ -1,0 +1,27 @@
+extends default 
+
+block append head
+    link(rel="stylesheet", type="text/css" href="css/new.css")
+
+block header
+    h2 Creating new fight
+
+block content
+    form(action="/", method="POST")
+        h3 Author
+        .author
+            label
+                p Name
+                input(name="handle", maxlength=30)
+            label
+                p Secret
+                input(name="secret", maxlength=50)
+        p Name + Secret: Your YellFest Identity
+        h3 Thread
+        label
+            p Title
+            input(name="title", maxlength=100, required)
+        label
+            p Body
+            textarea(name="body", maxlength=2000, required)
+        button(type="submit", class="cta-button") Post

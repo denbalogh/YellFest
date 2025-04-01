@@ -9,7 +9,12 @@ h1{
 }
 
 h2{
-    font-size: 1.25rem;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+h3{
+    font-size: 1.25;
     line-height: 1;
 }
 
@@ -25,46 +30,34 @@ header{
     align-items: center;
 }
 
+header a{
+    color: black;
+    text-decoration: none;
+}
+
 header p{
     text-align: center;
     margin-top: -1rem;
 }
 
-header button{
-    margin: 20px 0;
-    font-size: 1.1rem;
-}
-
-main p{
-    text-align: center;
-}
-
-main .empty{
-    color: gray;
-}
-
-article{
-    text-align: center;
-    margin: 30px auto;
-}
-
-article .stats{
-    font-size: 1rem;
-    color: gray;
-}
-
-/* Desktop styles */
-
 @media only screen and (min-width: 800px){
     header{
         flex-direction: row;
     }
+}
 
-    /* main p{
-        text-align: left;
-    }
+.cta-button{
+    color: white;
+    font-weight: bold;
+    background-color: red;
+    text-decoration: none;
+    padding: 10px;
+    border: 0;
+    cursor: pointer;
+}
 
-    article{
-        text-align: left;
-    } */
+.back-button{
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
 }

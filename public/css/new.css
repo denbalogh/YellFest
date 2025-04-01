@@ -1,0 +1,48 @@
+h2, h3 {
+    text-align: center;
+}
+
+form, form label{
+    display: flex;
+    flex-direction: column;
+}
+
+form .author{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+form .author label{
+    width: 100%;
+}
+
+@media only screen and (min-width: 800px){
+    form .author{
+        flex-direction: row;
+    }
+
+    form .author label{
+        width: calc(50% - 10px)
+    }
+}
+
+form label p{
+    margin: 10px 0;
+}
+
+form input, form textarea{
+    font-size: 1rem;
+    padding:5px;
+    text-indent: 0px;
+}
+
+form textarea{
+    resize: vertical;
+}
+
+form button{
+    align-self: center;
+    min-width: 50%;
+    margin: 30px 0;
+}
