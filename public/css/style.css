@@ -39,6 +39,10 @@ main p{
     text-align: center;
 }
 
+main .empty{
+    color: gray;
+}
+
 article{
     text-align: center;
     margin: 30px auto;

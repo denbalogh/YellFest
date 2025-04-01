@@ -8,10 +8,13 @@ block content
                 p Louder wins
             button Start a fight
         main 
-            p Hottest threads:
-            each thread in threads 
-                article
-                    a(href="#")
-                        h2 #{thread.title}
-                    div 
-                        p.stats Replies: #{thread.replyCount} | Upvotes: #{thread.upvotes} | Last Post: #{thread.lastActivity}
+            p Hottest fights:
+            if !threads.length
+                p.empty No fights
+            else 
+                each thread in threads 
+                    article
+                        a(href="#")
+                            h2 #{thread.title}
+                        div 
+                            p.stats Replies: #{thread.replyCount} | Upvotes: #{thread.upvotes} | Last Post: #{thread.lastActivity}
