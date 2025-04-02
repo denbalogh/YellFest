@@ -1,5 +1,6 @@
 import express from "express";
 import { Thread } from "./types";
+import { createThread, getThreadWithDateDistance } from "./helpers/thread";
 
 const app = express();
 const port = 3000;
@@ -16,7 +17,7 @@ app.use(express.static("public"));
 
 // TEMP: static data for debugging
 const threads: Thread[] = [];
-let idCnt = 0;
+let idCnt = 1;
 
 // Routes
 app
@@ -24,23 +25,30 @@ app
   .get((req, res) => {
     res.render("home", {
       title: "YellFest - yell at each other to your heart's content",
-      threads,
+      threads: threads.map(getThreadWithDateDistance),
     });
   })
   .post((req, res) => {
-    threads.push({
-      id: idCnt++,
-      title: req.body.title || "No title",
-      replyCount: 0,
-      upvotes: 0,
-      latestActivity: Date.now(),
+    threads.push(
+      createThread({
+        id: idCnt++,
+        title: req.body.title || "No title",
+        body: req.body.body || "No body",
+        authorName: req.body.name || `Anon${idCnt}`,
+        authorSecret: req.body.secret,
+      }),
+    );
+    res.render("home", {
+      title: "YellFest - yell at each other to your heart's content",
+      threads: threads.map(getThreadWithDateDistance),
+      newThread: true,
     });
-    res.redirect("/");
   });
 
 app.get("/new", (req, res) => {
   res.render("new", {
     title: "YellFest - Creating new fight",
+    defaultAuthorName: `Anon${idCnt}`,
   });
 });
 

@@ -61,3 +61,8 @@ header p{
     font-weight: bold;
     color: black;
 }
+
+.required::after{
+    content: "*";
+    color: red;
+}

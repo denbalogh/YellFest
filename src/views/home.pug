@@ -3,11 +3,13 @@ extends default
 block append head
     link(rel="stylesheet", type="text/css" href="css/home.css")
 
-block header
+block header_right
     a(href="/new", class="cta-button") Start a fight
 
 block content
-    main 
+    main
+        if newThread
+            p.new-fight New fight created
         p Hottest fights:
         if !threads.length
             p.empty No fights
@@ -16,5 +18,8 @@ block content
                 article
                     a(href="#")
                         h2 #{thread.title}
-                    div 
-                        p.stats Replies: #{thread.replyCount} | Upvotes: #{thread.upvotes} | Last Post: #{thread.lastActivity}
+                    a(href="#", class="author") #{thread.authorName}
+                    .stats
+                        span Replies: #{thread.replyCount} 
+                        span Upvotes: #{thread.upvotes} 
+                        span Last post: #{thread.latestActivityDistance}

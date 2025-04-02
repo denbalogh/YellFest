@@ -3,7 +3,7 @@ extends default
 block append head
     link(rel="stylesheet", type="text/css" href="css/new.css")
 
-block header
+block header_right
     h2 Creating new fight
 
 block content
@@ -12,16 +12,16 @@ block content
         .author
             label
                 p Name
-                input(name="handle", maxlength=30)
+                input(name="name", placeholder=defaultAuthorName maxlength=30)
             label
                 p Secret
-                input(name="secret", maxlength=50)
+                input(name="secret", maxlength=50, type="password")
         p Name + Secret: Your YellFest Identity
         h3 Thread
         label
-            p Title
+            p.required Title
             input(name="title", maxlength=100, required)
         label
-            p Body
+            p.required Body
             textarea(name="body", maxlength=2000, required)
         button(type="submit", class="cta-button") Post

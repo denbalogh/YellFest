@@ -6,9 +6,25 @@ main .empty{
     color: gray;
 }
 
+main .new-fight{
+    margin: 30px 0;
+    border: 1px solid red;
+    padding: 5px;
+    text-align: center;
+}
+
 article{
     text-align: center;
     margin: 30px auto;
+}
+
+article h2{
+    margin: 0;
+}
+
+article .author{
+    display: block;
+    margin: 10px 0;
 }
 
 article a{
@@ -21,6 +37,13 @@ article a:hover{
 }
 
 article .stats{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+article .stats span{
     font-size: 1rem;
     color: gray;
+    margin: 0 5px;
 }
