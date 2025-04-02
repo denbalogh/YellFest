@@ -1,4 +1,4 @@
-export type Thread = {
+export type Fight = {
   id: number;
   authorName?: string;
   authorSecret?: string;
@@ -9,6 +9,6 @@ export type Thread = {
   latestActivityTimestamp: number;
 };
 
-export type ThreadWithDistance = Thread & {
+export type FightWithDistance = Fight & {
   latestActivityDistance: string;
 };

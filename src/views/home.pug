@@ -1,25 +1,25 @@
 extends default
 
 block append head
-    link(rel="stylesheet", type="text/css" href="css/home.css")
+    link(rel="stylesheet", type="text/css" href="/css/home.css")
 
 block header_right
-    a(href="/new", class="cta-button") Start a fight
+    a(href="/fights/new", class="cta-button") Start a fight
 
 block content
     main
-        if newThread
+        if newFight
             p.new-fight New fight created
         p Hottest fights:
-        if !threads.length
+        if !fights.length
             p.empty No fights
         else 
-            each thread in threads 
+            each fight in fights 
                 article
                     a(href="#")
-                        h2 #{thread.title}
-                    a(href="#", class="author") #{thread.authorName}
+                        h2 #{fight.title}
+                    a(href="#", class="author") #{fight.authorName}
                     .stats
-                        span Replies: #{thread.replyCount} 
-                        span Upvotes: #{thread.upvotes} 
-                        span Last post: #{thread.latestActivityDistance}
+                        span Replies: #{fight.replyCount} 
+                        span Upvotes: #{fight.upvotes} 
+                        span Last post: #{fight.latestActivityDistance}

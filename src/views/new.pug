@@ -1,7 +1,7 @@
 extends default 
 
 block append head
-    link(rel="stylesheet", type="text/css" href="css/new.css")
+    link(rel="stylesheet", type="text/css" href="/css/new.css")
 
 block header_right
     h2 Creating new fight
@@ -17,7 +17,7 @@ block content
                 p Secret
                 input(name="secret", maxlength=50, type="password")
         p Name + Secret: Your YellFest Identity
-        h3 Thread
+        h3 Fight
         label
             p.required Title
             input(name="title", maxlength=100, required)
