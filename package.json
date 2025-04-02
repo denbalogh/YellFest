@@ -4,10 +4,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "npx tsx src/index.ts",
-    "watch": "nodemon --exec npm start"
-  },
-  "nodemonConfig": {
-    "ext": "ts,json"
+    "watch": "npx tsx watch src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +13,7 @@
   "dependencies": {
     "date-fns": "^4.1.0",
     "express": "^5.1.0",
+    "pg": "^8.14.1",
     "pug": "^3.0.3"
   },
   "devDependencies": {
