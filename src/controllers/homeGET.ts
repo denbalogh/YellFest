@@ -1,8 +1,8 @@
-import { RouterArgs } from "../router";
+import { HttpArgs } from "../App";
 import Header from "../views/Header";
 import Layout from "../views/layout";
 
-export default function homeGET(...args: RouterArgs) {
+export default function homeGET(...args: HttpArgs) {
   const [, res] = args;
 
   const layout = new Layout();

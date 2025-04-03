@@ -1,10 +1,12 @@
-import http from "node:http";
-import router from "./router";
+import router from "./middlewares/router";
+import App from "./App";
+import logger from "./middlewares/logger";
 
 const PORT = 3000;
 
-const server = http.createServer(router);
+const app = new App();
 
-server.listen(PORT, () => {
-  console.log(`Server is listening on port: ${PORT}`);
-});
+app.addMiddleware(logger);
+app.addMiddleware(router);
+
+app.start(PORT);
