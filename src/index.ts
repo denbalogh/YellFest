@@ -9,9 +9,10 @@ const PORT = 3000;
 const app = new App();
 
 app.addMiddleware(logger);
-app.addMiddleware(router);
 
 const staticFolderPath = path.join(__dirname, "..", "public");
 app.addMiddleware(staticFolder(staticFolderPath));
+
+app.addMiddleware(router);
 
 app.start(PORT);

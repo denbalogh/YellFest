@@ -1,14 +1,14 @@
 import { HttpArgs } from "../App";
-import homeGET from "../controllers/homeGET";
+import newFight from "../controllers/fights/new";
+import home from "../controllers/home";
 
 export default function router(...args: HttpArgs) {
-  const [req, res] = args;
+  const [req] = args;
 
   switch (req.url) {
     case "/":
-      switch (req.method) {
-        case "GET":
-          return homeGET(...args);
-      }
+      return home(...args);
+    case "/fights/new":
+      return newFight(...args);
   }
 }
