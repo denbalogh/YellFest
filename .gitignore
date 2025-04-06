@@ -1,4 +1,4 @@
 node_modules
-
+.env
 # For testing requests
 test.rest

@@ -1,14 +1,13 @@
 import { HttpArgs } from "../../App";
-import { getNewAuthorName } from "../../db/author";
 import Page from "../../Page";
 import container from "../../views/container";
 import header from "../../views/header";
 import newFightForm from "../../views/newFightForm";
 
-export default async function newFight(...args: HttpArgs) {
-  const [, res] = args;
+const idCnt = 1;
 
-  const newUserName = await getNewAuthorName();
+export default function fightDetail(...args: HttpArgs) {
+  const [, res] = args;
 
   const page = new Page();
   page.setTitle("YellFest - Creating new fight");
@@ -16,7 +15,7 @@ export default async function newFight(...args: HttpArgs) {
   page.setBody(
     container([
       header("<h2>Creating new fight</h2>"),
-      newFightForm(newUserName),
+      newFightForm(`Anon${idCnt}`),
     ]),
   );
 

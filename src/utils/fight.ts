@@ -1,22 +1,11 @@
-import { Fight, FightWithDistance } from "../types";
-import { getDistanceFromTimestamp } from "./date";
+import { Fight, FightWithUpdatedAtDistance } from "../types/fight";
+import { getDistanceFromNow } from "./date";
 
-export function getFightWithDateDistance(fight: Fight): FightWithDistance {
+export function getFightWithUpdatedAtDistance(
+  fight: Fight,
+): FightWithUpdatedAtDistance {
   return {
     ...fight,
-    latestActivityDistance: getDistanceFromTimestamp(
-      fight.latestActivityTimestamp,
-    ),
-  };
-}
-
-export function createFight(
-  fight: Omit<Fight, "replyCount" | "upvotes" | "latestActivityTimestamp">,
-) {
-  return {
-    ...fight,
-    replyCount: 0,
-    upvotes: 0,
-    latestActivityTimestamp: Date.now() / 1000,
+    updated_at_distance: getDistanceFromNow(fight.updated_at),
   };
 }

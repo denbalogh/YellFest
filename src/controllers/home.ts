@@ -1,33 +1,47 @@
 import { HttpArgs } from "../App";
+import { pool } from "../db";
+import { getExistingAuthorOrCreateNew, getNewAuthorName } from "../db/author";
 import Page from "../Page";
-import { Fight } from "../types";
-import { createFight, getFightWithDateDistance } from "../utils/fight";
+import { getFightWithUpdatedAtDistance } from "../utils/fight";
 import getFormData from "../utils/form";
 import container from "../views/container";
 import fightsList from "../views/fightsList";
 import header from "../views/header";
 
-const fights: Fight[] = [];
-let idCnt = 1;
-
 export default async function home(...args: HttpArgs) {
   const [req, res] = args;
 
+  const newUserName = await getNewAuthorName();
+
   // Handle creation of new fight
   if (req.method === "POST") {
-    const data = await getFormData(req);
-    fights.push(
-      createFight({
-        id: idCnt++,
-        title: data.title || "No title",
-        body: data.body || "No body",
-        authorName: data.name || `Anon${idCnt}`,
-        authorSecret: data.secret,
-      }),
+    const {
+      name,
+      secret,
+      title = "",
+      body = "",
+    } = await getFormData<"name" | "secret" | "title" | "body">(req);
+
+    const { author_id } = await getExistingAuthorOrCreateNew(
+      name || newUserName,
+      secret,
+    );
+
+    await pool.query(
+      `
+        INSERT INTO fights(author_id, title, body, upvotes, created_at, updated_at)
+        VALUES($1, $2, $3, $4, $5, $6) 
+      `,
+      [author_id, title, body, 0, new Date(), new Date()],
     );
   }
 
-  const fightsWithDistance = fights.map(getFightWithDateDistance);
+  const fights = await pool.query(`
+    SELECT fight_id, name AS author_name, title, body, upvotes, created_at, updated_at
+    FROM fights NATURAL JOIN authors
+  `);
+
+  const fightsWithDistance = fights.rows.map(getFightWithUpdatedAtDistance);
 
   const page = new Page();
   page.addCss("/css/home.css");

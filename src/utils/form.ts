@@ -1,18 +1,13 @@
 import { IncomingMessage } from "node:http";
 
-function parseFormData(formData: string): Record<string, string> {
-  const formDataObject = {};
-
-  const keyValuePairs = formData.split("&");
-  for (const keyValue of keyValuePairs) {
-    const [key, value] = keyValue.split("=");
-    formDataObject[key] = value;
-  }
-
-  return formDataObject;
+function parseFormData<Keys extends string>(
+  formData: string,
+): Record<Keys, string> {
+  const searchParams = new URLSearchParams(formData);
+  return Object.fromEntries(searchParams.entries()) as Record<Keys, string>;
 }
 
-export default function getFormData(
+export default function getFormData<Keys extends string>(
   req: IncomingMessage,
 ): Promise<Record<string, string>> {
   return new Promise((resolve, reject) => {
@@ -23,7 +18,7 @@ export default function getFormData(
     });
     // Data has been received
     req.on("end", () => {
-      resolve(parseFormData(body));
+      resolve(parseFormData<Keys>(body));
     });
     // On error
     req.on("error", (err) => {

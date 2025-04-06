@@ -3,8 +3,12 @@ import App from "./App";
 import logger from "./middlewares/logger";
 import path from "node:path";
 import staticFolder from "./middlewares/static";
+import { createTables } from "./db/setup";
 
 const PORT = 3000;
+
+// Create tables in DB, if don't exist
+createTables();
 
 const app = new App();
 

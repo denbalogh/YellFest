@@ -1,6 +1,5 @@
-import { formatDistance, fromUnixTime } from "date-fns";
+import { formatDistance } from "date-fns";
 
-export function getDistanceFromTimestamp(timestamp: number) {
-  const date = fromUnixTime(timestamp);
+export function getDistanceFromNow(date: Date) {
   return formatDistance(date, new Date(), { addSuffix: true });
 }
