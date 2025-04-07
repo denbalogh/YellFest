@@ -1,6 +1,6 @@
 import { pool } from ".";
 
-export async function createAuthorsTable() {
+export async function createAuthorsTableIfDoesntExist() {
   await pool.query(`
             CREATE TABLE IF NOT EXISTS authors(
                 author_id SERIAL PRIMARY KEY,
@@ -10,7 +10,7 @@ export async function createAuthorsTable() {
         `);
 }
 
-export async function createFightsTable() {
+export async function createFightsTableIfDoesntExist() {
   await pool.query(`
             CREATE TABLE IF NOT EXISTS fights(
                 fight_id SERIAL PRIMARY KEY,
@@ -18,34 +18,34 @@ export async function createFightsTable() {
                 title VARCHAR(100),
                 body VARCHAR(2000),
                 upvotes INT,
-                created_at DATE,
-                updated_at DATE
+                created_at TIMESTAMP,
+                updated_at TIMESTAMP
             )
         `);
 }
 
-export async function createRepliesTable() {
-  await pool.query(`
-        CREATE TABLE IF NOT EXISTS replies(
-            replyID int NOT NULL,
-            authorID int NOT NULL,
-            fightID int NOT NULL,
-            parentReplyID int NOT NULL,
-            body varchar(2000),
-            upvotes int,
-            createdAt DATE,
-            PRIMARY KEY (replyID),
-            FOREIGN KEY (authorID) REFERENCES Authors(authorID),
-            FOREIGN KEY (fightID) REFERENCES Fights(fightID),
-            FOREIGN KEY (parentReplyID) REFERENCES Replies(parentReplyID)
-        )
-    `);
-}
+// export async function createRepliesTableIfDoesntExist() {
+//   await pool.query(`
+//         CREATE TABLE IF NOT EXISTS replies(
+//             replyID int NOT NULL,
+//             authorID int NOT NULL,
+//             fightID int NOT NULL,
+//             parentReplyID int NOT NULL,
+//             body varchar(2000),
+//             upvotes int,
+//             createdAt DATE,
+//             PRIMARY KEY (replyID),
+//             FOREIGN KEY (authorID) REFERENCES Authors(authorID),
+//             FOREIGN KEY (fightID) REFERENCES Fights(fightID),
+//             FOREIGN KEY (parentReplyID) REFERENCES Replies(parentReplyID)
+//         )
+//     `);
+// }
 
-export async function createTables() {
+export async function createTablesIfDontExist() {
   try {
-    await createAuthorsTable();
-    await createFightsTable();
+    await createAuthorsTableIfDoesntExist();
+    await createFightsTableIfDoesntExist();
     // await createRepliesTable();
   } catch (error) {
     console.log(error);

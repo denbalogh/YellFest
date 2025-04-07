@@ -8,7 +8,7 @@ export default function fightsListItem(fight: FightWithUpdatedAtDistance) {
             </a>
             <a href="#" class="author">${fight.author_name}</a>
             <div class="stats">
-                <span>Replies: ${0}</span>
+                <span>Replies: 0</span>
                 <span>Upvotes: ${fight.upvotes}</span>
                 <span>Last post: ${fight.updated_at_distance}</span>
             </div>
