@@ -1,11 +1,11 @@
-import { HttpArgs } from "../../App";
 import { getNewAuthorName } from "../../db/author";
 import Page from "../../Page";
+import { ViewFundAsync } from "../../types/view";
 import container from "../../views/container";
 import header from "../../views/header";
 import newFightForm from "../../views/newFightForm";
 
-export default async function newFight(...args: HttpArgs) {
+const newFight: ViewFundAsync = async (...args) => {
   const [, res] = args;
 
   const newUserName = await getNewAuthorName();
@@ -28,4 +28,8 @@ export default async function newFight(...args: HttpArgs) {
       "content-length": Buffer.byteLength(html),
     })
     .end(html);
-}
+
+  return true;
+};
+
+export default newFight;

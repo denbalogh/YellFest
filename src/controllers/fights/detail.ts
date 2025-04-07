@@ -1,23 +1,37 @@
-import { HttpArgs } from "../../App";
+import { pool } from "../../db";
+import { fightDetailRegex } from "../../middlewares/router";
 import Page from "../../Page";
+import { Fight } from "../../types/fight";
+import { ViewFundAsync } from "../../types/view";
 import container from "../../views/container";
 import header from "../../views/header";
-import newFightForm from "../../views/newFightForm";
+import notFound from "../notFound";
 
-const idCnt = 1;
+const fightDetail: ViewFundAsync = async (...args) => {
+  const [req, res] = args;
 
-export default function fightDetail(...args: HttpArgs) {
-  const [, res] = args;
+  const matches = req.url?.match(fightDetailRegex);
+  const fightId = matches?.groups?.fightId as string; // The string matched in router, it has to include the group
+
+  const fightQuery = await pool.query<Fight>(
+    `
+      SELECT *
+      FROM fights
+      WHERE fight_id = $1
+    `,
+    [fightId],
+  );
+
+  if (fightQuery.rowCount === 0) {
+    return notFound(...args);
+  }
+
+  const fight = fightQuery.rows[0];
 
   const page = new Page();
-  page.setTitle("YellFest - Creating new fight");
-  page.addCss("/css/new.css");
-  page.setBody(
-    container([
-      header("<h2>Creating new fight</h2>"),
-      newFightForm(`Anon${idCnt}`),
-    ]),
-  );
+  page.setTitle(`YellFest - Fight: ${fight.title}`);
+  // page.addCss("/css/new.css");
+  page.setBody(container([header()]));
 
   const html = page.render();
 
@@ -27,4 +41,8 @@ export default function fightDetail(...args: HttpArgs) {
       "content-length": Buffer.byteLength(html),
     })
     .end(html);
-}
+
+  return true;
+};
+
+export default fightDetail;

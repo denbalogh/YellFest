@@ -1,13 +1,15 @@
-import { HttpArgs } from "../App";
+import { MiddlewareFuncAsync } from "../App";
 import { readdir, readFile } from "node:fs/promises";
 import { getContentTypeFromExt } from "../utils/file";
 
-export default function staticFolder(folderPath: string) {
-  return async function (...args: HttpArgs) {
+const staticFolder: (folderPath: string) => MiddlewareFuncAsync = (
+  folderPath,
+) => {
+  return async function (...args) {
     const [req, res] = args;
 
     if (req.method !== "GET" || !req.url) {
-      return;
+      return false;
     }
 
     const dirContents = (await readdir(folderPath, {
@@ -23,6 +25,12 @@ export default function staticFolder(folderPath: string) {
           "content-length": Buffer.byteLength(file),
         })
         .end(file);
+
+      return true;
     }
+
+    return false;
   };
-}
+};
+
+export default staticFolder;

@@ -3,7 +3,7 @@ import { FightWithUpdatedAtDistance } from "../types/fight";
 export default function fightsListItem(fight: FightWithUpdatedAtDistance) {
   return `
         <article>
-            <a href="#">
+            <a href="/fights/${fight.fight_id}">
                 <h2>${fight.title}</h2>
             </a>
             <a href="#" class="author">${fight.author_name}</a>
