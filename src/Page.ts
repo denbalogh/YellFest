@@ -39,6 +39,7 @@ export default class {
             <link rel="icon" type="image/svg+xml" href="/images/favicon/favicon.svg" />
             <link rel="shortcut icon" href="/images/favicon/favicon.ico" />
             <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png" />
+            <meta name="apple-mobile-web-app-title" content="YellFest" />
             <link rel="manifest" href="/site.webmanifest" />
             ${css.join(" ")}
             ${js.join(" ")}
