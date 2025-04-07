@@ -7,7 +7,17 @@ const notFound: ViewFunc = (...args) => {
   const [, res] = args;
 
   const page = new Page();
-  page.setBody(container([header(), "<h2>Page was not found!</h2>"]));
+  page.addCss("/css/404.css");
+  page.setBody(
+    container([
+      header(),
+      `
+        <main>
+          <h2>Page was not found!</h2>
+        </main>
+      `,
+    ]),
+  );
 
   const html = page.render();
 
