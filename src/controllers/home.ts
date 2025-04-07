@@ -1,14 +1,14 @@
 import { pool } from "../db";
 import { getExistingAuthorOrCreateNew, getNewAuthorName } from "../db/author";
 import Page from "../Page";
-import { ViewFundAsync } from "../types/view";
+import { ViewFuncAsync } from "../types/view";
 import { getFightWithUpdatedAtDistance } from "../utils/fight";
 import getFormData from "../utils/form";
 import container from "../views/container";
 import fightsList from "../views/fightsList";
 import header from "../views/header";
 
-const home: ViewFundAsync = async (...args) => {
+const home: ViewFuncAsync = async (...args) => {
   const [req, res] = args;
 
   const newUserName = await getNewAuthorName();

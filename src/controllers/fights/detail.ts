@@ -2,12 +2,12 @@ import { pool } from "../../db";
 import { fightDetailRegex } from "../../middlewares/router";
 import Page from "../../Page";
 import { Fight } from "../../types/fight";
-import { ViewFundAsync } from "../../types/view";
+import { ViewFuncAsync } from "../../types/view";
 import container from "../../views/container";
 import header from "../../views/header";
 import notFound from "../notFound";
 
-const fightDetail: ViewFundAsync = async (...args) => {
+const fightDetail: ViewFuncAsync = async (...args) => {
   const [req, res] = args;
 
   const matches = req.url?.match(fightDetailRegex);
