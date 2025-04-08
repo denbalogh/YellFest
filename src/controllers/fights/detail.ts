@@ -5,6 +5,7 @@ import { Fight } from "../../types/fight";
 import { ViewFuncAsync } from "../../types/view";
 import container from "../../views/container";
 import header from "../../views/header";
+import main from "../../views/main";
 import notFound from "../notFound";
 
 const fightDetail: ViewFuncAsync = async (...args) => {
@@ -30,8 +31,16 @@ const fightDetail: ViewFuncAsync = async (...args) => {
 
   const page = new Page();
   page.setTitle(`YellFest - Fight: ${fight.title}`);
-  // page.addCss("/css/new.css");
-  page.setBody(container([header()]));
+  page.addCss("/css/fightDetail.css");
+  page.setBody(
+    container([
+      header(),
+      main(`
+      <h2>${fight.title}</h2>
+      <p>${fight.body}</p>
+    `),
+    ]),
+  );
 
   const html = page.render();
 

@@ -8,6 +8,7 @@ export default function header(right = "") {
     <header>
         <div>
             <a href="/">
+                <img src="/images/logo_200x200.png" alt="Red logo for YellFest featuring a bold megaphone icon, symbolizing loud, anonymous arguments" />
                 <h1>YellFest</h1>
             </a>
             <p>Louder wins</p>

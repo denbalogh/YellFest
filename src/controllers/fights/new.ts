@@ -3,7 +3,7 @@ import Page from "../../Page";
 import { ViewFuncAsync } from "../../types/view";
 import container from "../../views/container";
 import header from "../../views/header";
-import newFightForm from "../../views/newFightForm";
+import main from "../../views/main";
 
 const newFight: ViewFuncAsync = async (...args) => {
   const [, res] = args;
@@ -12,11 +12,36 @@ const newFight: ViewFuncAsync = async (...args) => {
 
   const page = new Page();
   page.setTitle("YellFest - Creating new fight");
-  page.addCss("/css/new.css");
+  page.addCss("/css/newFight.css");
   page.setBody(
     container([
       header("<h2>Creating new fight</h2>"),
-      newFightForm(newUserName),
+      main(`
+        <form action="/" method="POST">
+            <h3>Author</h3>
+            <div class="author">
+                <label>
+                    <p>Name</p>
+                    <input name="name" placeholder="${newUserName}" maxlength=30 />
+                </label>
+                <label>
+                    <p>Secret</p>
+                    <input name="secret" maxlength=50 type="password" />
+                </label>
+            </div>
+            <p>Name + Secret: Your YellFest Identity</p>
+            <h3>Fight</h3>
+            <label>
+                <p class="required">Title</p>
+                <input name="title" maxlength=100 required />
+            </label>
+            <label>
+                <p class="required">Body</p>
+                <textarea name="body" maxlength=2000 required ></textarea>
+            </label>
+            <button type="submit" class="cta-button">Post</button>
+        </form>
+      `),
     ]),
   );
 

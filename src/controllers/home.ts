@@ -7,6 +7,7 @@ import getFormData from "../utils/form";
 import container from "../views/container";
 import fightsList from "../views/fightsList";
 import header from "../views/header";
+import main from "../views/main";
 
 const home: ViewFuncAsync = async (...args) => {
   const [req, res] = args;
@@ -45,7 +46,7 @@ const home: ViewFuncAsync = async (...args) => {
 
   const page = new Page();
   page.addCss("/css/home.css");
-  page.setBody(container([header(), fightsList(fightsWithDistance)]));
+  page.setBody(container([header(), main(fightsList(fightsWithDistance))]));
 
   const html = page.render();
 
