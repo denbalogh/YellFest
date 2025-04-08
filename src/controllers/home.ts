@@ -13,6 +13,7 @@ const home: ViewFuncAsync = async (...args) => {
   const [req, res] = args;
 
   const newUserName = await getNewAuthorName();
+  let newFight = false;
 
   // Handle creation of new fight
   if (req.method === "POST") {
@@ -35,6 +36,8 @@ const home: ViewFuncAsync = async (...args) => {
       `,
       [author_id, title, body, 0, new Date(), new Date()],
     );
+
+    newFight = true;
   }
 
   const fights = await pool.query(`
@@ -46,7 +49,10 @@ const home: ViewFuncAsync = async (...args) => {
 
   const page = new Page();
   page.addCss("/css/home.css");
-  page.setBody(container([header(), main(fightsList(fightsWithDistance))]));
+  page.addCss("/css/fightsList.css");
+  page.setBody(
+    container([header(), main(fightsList(fightsWithDistance, newFight))]),
+  );
 
   const html = page.render();
 

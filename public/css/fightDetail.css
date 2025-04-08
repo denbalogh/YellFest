@@ -1,0 +1,71 @@
+main h2, main a{
+    text-align: center;
+    display: block;
+}
+
+main p{
+    font-size: 1.1rem;
+    line-height: 1.5;
+}
+
+main .author-wrapper{
+    text-align: center;
+}
+
+main .author-wrapper a{
+    display: inline-block;
+}
+
+form, form label{
+    display: flex;
+    flex-direction: column;
+}
+
+form h3{
+    text-align: center;
+}
+
+form p{
+    font-size: 1rem;
+}
+
+form .author{
+    display: flex;
+    flex-direction: column;
+}
+
+form .author label{
+    width: 100%;
+}
+
+@media only screen and (width >= 800px){
+    form .author{
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    form .author label{
+        width: calc(50% - 10px)
+    }
+}
+
+form label p{
+    margin: 5px 0;
+}
+
+form input, form textarea{
+    font-size: 1rem;
+    padding: 5px;
+    text-indent: 0;
+}
+
+form textarea{
+    resize: vertical;
+    min-height: 100px;
+}
+
+form button{
+    align-self: center;
+    min-width: 50%;
+    margin: 30px 0;
+}

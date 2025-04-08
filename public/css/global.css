@@ -23,6 +23,15 @@ p{
     line-height: 1;
 }
 
+a.link{
+    color: black;
+    text-decoration: none;
+}
+
+a.link:hover{
+    text-decoration: underline;
+}
+
 header{
     display: flex;
     flex-direction: column;
@@ -49,12 +58,6 @@ header p{
     margin-top: -1rem;
 }
 
-@media only screen and (width >= 800px){
-    header{
-        flex-direction: row;
-    }
-}
-
 .cta-button{
     color: white;
     font-weight: bold;
@@ -66,13 +69,25 @@ header p{
     border-radius: 5px;
 }
 
-.back-button{
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
+header .cta-button{
+    margin: 10px 0 0;
+}
+
+@media only screen and (width >= 800px){
+    header{
+        flex-direction: row;
+    }
+
+    header .cta-button{
+        margin: 0;
+    }
 }
 
 .required::after{
     content: "*";
     color: #CE2514;
+}
+
+main{
+    padding: 30px 0;
 }

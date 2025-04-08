@@ -1,4 +1,5 @@
 import { pool } from "../../db";
+import { getNewAuthorName } from "../../db/author";
 import { fightDetailRegex } from "../../middlewares/router";
 import Page from "../../Page";
 import { Fight } from "../../types/fight";
@@ -6,6 +7,7 @@ import { ViewFuncAsync } from "../../types/view";
 import container from "../../views/container";
 import header from "../../views/header";
 import main from "../../views/main";
+import { replyForm } from "../../views/replyForm";
 import notFound from "../notFound";
 
 const fightDetail: ViewFuncAsync = async (...args) => {
@@ -16,8 +18,8 @@ const fightDetail: ViewFuncAsync = async (...args) => {
 
   const fightQuery = await pool.query<Fight>(
     `
-      SELECT *
-      FROM fights
+      SELECT title, body, name AS author_name
+      FROM authors NATURAL JOIN fights
       WHERE fight_id = $1
     `,
     [fightId],
@@ -29,16 +31,24 @@ const fightDetail: ViewFuncAsync = async (...args) => {
 
   const fight = fightQuery.rows[0];
 
+  const newUserName = await getNewAuthorName();
+
   const page = new Page();
   page.setTitle(`YellFest - Fight: ${fight.title}`);
   page.addCss("/css/fightDetail.css");
   page.setBody(
     container([
       header(),
-      main(`
-      <h2>${fight.title}</h2>
-      <p>${fight.body}</p>
-    `),
+      main([
+        `
+          <h2>${fight.title}</h2>
+          <div class="author-wrapper">
+            <a class="link" href="#">${fight.author_name}</a>
+          </div>
+          <p>${fight.body}</p>
+        `,
+        replyForm(fight, newUserName),
+      ]),
     ]),
   );
 

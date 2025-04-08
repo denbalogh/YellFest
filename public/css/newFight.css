@@ -39,6 +39,7 @@ form input, form textarea{
 
 form textarea{
     resize: vertical;
+    min-height: 100px;
 }
 
 form button{
