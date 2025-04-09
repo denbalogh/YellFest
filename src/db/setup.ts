@@ -24,29 +24,25 @@ export async function createFightsTableIfDoesntExist() {
         `);
 }
 
-// export async function createRepliesTableIfDoesntExist() {
-//   await pool.query(`
-//         CREATE TABLE IF NOT EXISTS replies(
-//             replyID int NOT NULL,
-//             authorID int NOT NULL,
-//             fightID int NOT NULL,
-//             parentReplyID int NOT NULL,
-//             body varchar(2000),
-//             upvotes int,
-//             createdAt DATE,
-//             PRIMARY KEY (replyID),
-//             FOREIGN KEY (authorID) REFERENCES Authors(authorID),
-//             FOREIGN KEY (fightID) REFERENCES Fights(fightID),
-//             FOREIGN KEY (parentReplyID) REFERENCES Replies(parentReplyID)
-//         )
-//     `);
-// }
+export async function createRepliesTableIfDoesntExist() {
+  await pool.query(`
+        CREATE TABLE IF NOT EXISTS replies(
+            reply_id SERIAL PRIMARY KEY,
+            fight_id INT REFERENCES fights,
+            author_id INT REFERENCES authors,
+            parent_reply_id INT REFERENCES replies,
+            body VARCHAR(2000),
+            upvotes int,
+            created_at TIMESTAMP
+        )
+    `);
+}
 
 export async function createTablesIfDontExist() {
   try {
     await createAuthorsTableIfDoesntExist();
     await createFightsTableIfDoesntExist();
-    // await createRepliesTable();
+    await createRepliesTableIfDoesntExist();
   } catch (error) {
     console.log(error);
   }

@@ -2,7 +2,6 @@ import { pool } from "../db";
 import { getExistingAuthorOrCreateNew, getNewAuthorName } from "../db/author";
 import Page from "../Page";
 import { ViewFuncAsync } from "../types/view";
-import { getFightWithUpdatedAtDistance } from "../utils/fight";
 import getFormData from "../utils/form";
 import container from "../views/container";
 import fightsList from "../views/fightsList";
@@ -45,14 +44,10 @@ const home: ViewFuncAsync = async (...args) => {
     FROM fights NATURAL JOIN authors
   `);
 
-  const fightsWithDistance = fights.rows.map(getFightWithUpdatedAtDistance);
-
   const page = new Page();
   page.addCss("/css/home.css");
   page.addCss("/css/fightsList.css");
-  page.setBody(
-    container([header(), main(fightsList(fightsWithDistance, newFight))]),
-  );
+  page.setBody(container([header(), main(fightsList(fights.rows, newFight))]));
 
   const html = page.render();
 

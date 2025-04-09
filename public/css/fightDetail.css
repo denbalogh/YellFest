@@ -1,11 +1,12 @@
-main h2, main a{
+main h2, main a, main h3{
     text-align: center;
     display: block;
 }
 
-main p{
+main article, main p{
     font-size: 1.1rem;
     line-height: 1.5;
+    margin: 10px 0;
 }
 
 main .author-wrapper{
@@ -14,15 +15,12 @@ main .author-wrapper{
 
 main .author-wrapper a{
     display: inline-block;
+    color: gray;
 }
 
 form, form label{
     display: flex;
     flex-direction: column;
-}
-
-form h3{
-    text-align: center;
 }
 
 form p{

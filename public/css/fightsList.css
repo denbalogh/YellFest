@@ -17,6 +17,10 @@ article a{
     display: inline-block;
 }
 
+article .author a{
+    color: gray;
+}
+
 article a:hover{
     text-decoration: underline;
 }

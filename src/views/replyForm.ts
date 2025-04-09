@@ -2,8 +2,9 @@ import { Fight } from "../types/fight";
 
 export function replyForm(fight: Fight, newUserName: string) {
   return `
+    <hr>
+    <h3>Yell back!</h3>
     <form action="/fights/${fight.fight_id}" method="POST">
-        <h3>Yell back!</h3>
         <div class="author">
             <label>
                 <p>Name</p>

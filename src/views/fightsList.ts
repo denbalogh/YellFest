@@ -1,10 +1,7 @@
-import { FightWithUpdatedAtDistance } from "../types/fight";
+import { Fight } from "../types/fight";
 import fightsListItem from "./fightsListItem";
 
-export default function fightsList(
-  fights: FightWithUpdatedAtDistance[],
-  newFight = false,
-) {
+export default function fightsList(fights: Fight[], newFight = false) {
   const hasFights = fights.length > 0;
 
   return !hasFights

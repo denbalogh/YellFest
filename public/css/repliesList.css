@@ -1,0 +1,37 @@
+.replies-wrapper .empty{
+    color: gray;
+    text-align: center;
+}
+
+.replies-wrapper article{
+    margin: 20px 0;
+}
+
+.replies-wrapper article p{
+    margin: 0;
+}
+
+.replies-wrapper article a{
+    text-align: left;
+    color: gray;
+}
+
+.replies-wrapper article .author-stats{
+    display: flex;
+    flex-direction: row;
+    color: gray;
+    font-size: 1rem;
+}
+
+.replies-wrapper article .author-stats span,
+.replies-wrapper article .author-stats button{
+    margin: 0 0 0 10px;
+}
+
+.replies-wrapper article .author-stats button{
+    background-color: #ce2514;
+    color: white;
+    border-color: #ce2514;
+    border-radius: 5px;
+    cursor: pointer;
+}
