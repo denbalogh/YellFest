@@ -3,11 +3,11 @@
     text-align: center;
 }
 
-.replies-wrapper article{
+.replies-wrapper > div{
     margin: 20px 0;
 }
 
-.replies-wrapper article p{
+.replies-wrapper article > p{
     margin: 0;
 }
 
@@ -18,14 +18,15 @@
 
 .replies-wrapper article .author-stats{
     display: flex;
-    flex-direction: row;
+    flex-flow: row wrap;
     color: gray;
     font-size: 1rem;
 }
 
+.replies-wrapper article .author-stats a,
 .replies-wrapper article .author-stats span,
 .replies-wrapper article .author-stats button{
-    margin: 0 0 0 10px;
+    margin: 0 10px 5px 0;
 }
 
 .replies-wrapper article .author-stats button{
@@ -34,4 +35,13 @@
     border-color: #ce2514;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.replies-wrapper form{
+    margin: 0 0 30px;
+    padding: 0 0 0 20px;
+}
+
+.replies-wrapper .indent{
+    padding: 0 0 0 20px;
 }

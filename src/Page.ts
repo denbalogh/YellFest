@@ -1,7 +1,7 @@
 export default class {
   title = "YellFest - yell at each other to your heart's content";
   css: string[] = ["/css/global.css"];
-  js: string[] = [];
+  js: string[] = ["/js/script.js"];
   body = "";
 
   setTitle(title: string) {
@@ -25,7 +25,7 @@ export default class {
       (css) => `<link rel="stylesheet" type="text/css" href="${css}">`,
     );
     const js = this.js.map(
-      (js) => `<script type="text/javascript" src="${js}"></script>`,
+      (js) => `<script type="text/javascript" defer src="${js}"></script>`,
     );
 
     return `

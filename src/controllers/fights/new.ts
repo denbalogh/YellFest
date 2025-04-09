@@ -12,7 +12,7 @@ const newFight: ViewFuncAsync = async (...args) => {
 
   const page = new Page();
   page.setTitle("YellFest - Creating new fight");
-  page.addCss("/css/newFight.css");
+  page.addCss("/css/form.css");
   page.setBody(
     container([
       header("<h2>Creating new fight</h2>"),

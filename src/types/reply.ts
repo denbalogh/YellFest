@@ -7,4 +7,5 @@ export type Reply = {
   body: string;
   upvotes: number;
   created_at: Date;
+  children: Reply[];
 };

@@ -44,7 +44,8 @@ const fightDetail: ViewFuncAsync = async (...args) => {
       name,
       secret,
       body = "",
-    } = await getFormData<"name" | "secret" | "body">(req);
+      parent_reply_id,
+    } = await getFormData<"name" | "secret" | "body" | "parent_reply_id">(req);
 
     const { author_id } = await getExistingAuthorOrCreateNew(
       name || newUserName,
@@ -53,24 +54,41 @@ const fightDetail: ViewFuncAsync = async (...args) => {
 
     await pool.query(
       `
-        INSERT INTO replies(fight_id, author_id, body, upvotes, created_at)
-        VALUES($1, $2, $3, $4, $5) 
+        INSERT INTO replies(fight_id, author_id, parent_reply_id, body, upvotes, created_at)
+        VALUES($1, $2, $3, $4, $5, $6) 
       `,
-      [fight.fight_id, author_id, body, 0, new Date()],
+      [fight.fight_id, author_id, parent_reply_id, body, 0, new Date()],
     );
   }
 
-  const replies = await pool.query<Reply>(
+  const topLevelReplies = await pool.query<Reply>(
     `
       SELECT *, name AS author_name
       FROM replies NATURAL JOIN authors
-      WHERE fight_id = $1
+      WHERE fight_id = $1 AND parent_reply_id IS NULL
     `,
     [fight.fight_id],
   );
 
+  const replies = await Promise.all(
+    topLevelReplies.rows.map(async (reply) => {
+      const childReplies = await pool.query<Reply>(
+        `
+        SELECT *, name AS author_name
+        FROM replies NATURAL JOIN authors
+        WHERE fight_id = $1 AND parent_reply_id = $2
+      `,
+        [fight.fight_id, reply.reply_id],
+      );
+      return { ...reply, children: childReplies.rows };
+    }),
+  );
+
+  console.log(replies);
+
   const page = new Page();
   page.setTitle(`YellFest - Fight: ${fight.title}`);
+  page.addCss("/css/form.css");
   page.addCss("/css/fightDetail.css");
   page.addCss("/css/repliesList.css");
   page.setBody(
@@ -84,7 +102,7 @@ const fightDetail: ViewFuncAsync = async (...args) => {
           </div>
           <article>${fight.body}</article>
         `,
-        repliesList(replies.rows),
+        repliesList(replies, newUserName),
         replyForm(fight, newUserName),
       ]),
     ]),

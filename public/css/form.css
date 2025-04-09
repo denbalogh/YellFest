@@ -7,6 +7,10 @@ form, form label{
     flex-direction: column;
 }
 
+form p{
+    line-height: 1;
+}
+
 form .author{
     display: flex;
     flex-direction: column;
@@ -45,5 +49,5 @@ form textarea{
 form button{
     align-self: center;
     min-width: 50%;
-    margin: 30px 0;
+    margin: 30px 0 0;
 }
