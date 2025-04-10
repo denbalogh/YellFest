@@ -17,7 +17,6 @@ export async function createFightsTableIfDoesntExist() {
                 author_id INT REFERENCES authors,
                 title VARCHAR(100),
                 body VARCHAR(2000),
-                upvotes INT,
                 created_at TIMESTAMP,
                 updated_at TIMESTAMP
             )
@@ -32,7 +31,6 @@ export async function createRepliesTableIfDoesntExist() {
             author_id INT REFERENCES authors,
             parent_reply_id INT REFERENCES replies,
             body VARCHAR(2000),
-            upvotes int,
             created_at TIMESTAMP
         )
     `);

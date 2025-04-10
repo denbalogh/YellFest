@@ -4,7 +4,7 @@ export type Fight = {
   author_name: string;
   title: string;
   body: string;
-  upvotes: number;
+  replies_count: number;
   created_at: Date;
   updated_at: Date;
 };

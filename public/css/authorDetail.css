@@ -1,0 +1,13 @@
+main p, main h2{
+    text-align: center;
+}
+
+main > h2{
+    font-size: 1.8rem;
+    margin: 30px 0;
+}
+
+main .empty{
+    color: gray;
+    margin: 20px 0;
+}

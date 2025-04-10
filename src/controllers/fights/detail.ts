@@ -24,7 +24,7 @@ const fightDetail: ViewFuncAsync = async (...args) => {
 
   const fightQuery = await pool.query<Fight>(
     `
-      SELECT fight_id, title, body, name AS author_name
+      SELECT fight_id, title, body, author_id, name AS author_name
       FROM authors NATURAL JOIN fights
       WHERE fight_id = $1
     `,
@@ -54,10 +54,19 @@ const fightDetail: ViewFuncAsync = async (...args) => {
 
     await pool.query(
       `
-        INSERT INTO replies(fight_id, author_id, parent_reply_id, body, upvotes, created_at)
-        VALUES($1, $2, $3, $4, $5, $6) 
+        INSERT INTO replies(fight_id, author_id, parent_reply_id, body, created_at)
+        VALUES($1, $2, $3, $4, $5) 
       `,
-      [fight.fight_id, author_id, parent_reply_id, body, 0, new Date()],
+      [fight.fight_id, author_id, parent_reply_id, body, new Date()],
+    );
+
+    await pool.query(
+      `
+        UPDATE fights
+        SET updated_at = $1
+        WHERE fight_id = $2
+      `,
+      [new Date(), fight.fight_id],
     );
   }
 
@@ -66,6 +75,7 @@ const fightDetail: ViewFuncAsync = async (...args) => {
       SELECT *, name AS author_name
       FROM replies NATURAL JOIN authors
       WHERE fight_id = $1 AND parent_reply_id IS NULL
+      ORDER BY created_at DESC
     `,
     [fight.fight_id],
   );
@@ -77,14 +87,13 @@ const fightDetail: ViewFuncAsync = async (...args) => {
         SELECT *, name AS author_name
         FROM replies NATURAL JOIN authors
         WHERE fight_id = $1 AND parent_reply_id = $2
+        ORDER BY created_at ASC
       `,
         [fight.fight_id, reply.reply_id],
       );
       return { ...reply, children: childReplies.rows };
     }),
   );
-
-  console.log(replies);
 
   const page = new Page();
   page.setTitle(`YellFest - Fight: ${fight.title}`);
@@ -98,7 +107,7 @@ const fightDetail: ViewFuncAsync = async (...args) => {
         `
           <h2>${fight.title}</h2>
           <div class="author-wrapper">
-            <a class="link" href="#"><strong>${fight.author_name}</strong></a>
+            <a class="link" href="/authors/${fight.author_id}"><strong>${fight.author_name}</strong></a>
           </div>
           <article>${fight.body}</article>
         `,

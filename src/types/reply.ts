@@ -5,7 +5,6 @@ export type Reply = {
   author_id: number;
   parent_reply_id: number;
   body: string;
-  upvotes: number;
   created_at: Date;
   children: Reply[];
 };

@@ -13,8 +13,7 @@ export default function repliesListItem(reply: Reply, newUserName: string) {
         >
             <p>${reply.body}</p>
             <div class="author-stats">
-                <a class="link" href="#"><strong>${reply.author_name}</strong></a>
-                <span>Upvotes:&nbsp;${reply.upvotes}</span>
+                <a class="link" href="/authors/${reply.author_id}"><strong>${reply.author_name}</strong></a>
                 <span>Posted:&nbsp;${getDistanceFromNow(reply.created_at)}</span>
                 ${reply.parent_reply_id ? "" : `<button class="bite-back-button">Bite back</button>`}
             </div>
