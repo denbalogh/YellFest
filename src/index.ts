@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === "dev") {
   app.addMiddleware(logger);
 }
 
-const staticFolderPath = path.join(__dirname, "..", "public");
+const staticFolderPath = path.join(import.meta.dirname, "..", "public");
 app.addMiddleware(staticFolder(staticFolderPath));
 
 app.addMiddleware(router);

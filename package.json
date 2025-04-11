@@ -2,6 +2,7 @@
   "name": "yellfest",
   "version": "1.0.0",
   "main": "src/index.ts",
+  "type": "module",
   "scripts": {
     "start": "npx tsx --env-file=.env src/index.ts",
     "dev": "NODE_ENV=dev npx tsx watch --env-file=.env src/index.ts",
