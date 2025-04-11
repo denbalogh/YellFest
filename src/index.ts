@@ -5,14 +5,17 @@ import path from "node:path";
 import staticFolder from "./middlewares/static";
 import { createTablesIfDontExist } from "./db/setup";
 
-const PORT = 3000;
+const PORT = parseInt(process.env.APP_PORT as string);
 
 // Setup database
 createTablesIfDontExist();
 
 const app = new App();
 
-app.addMiddleware(logger);
+// Log requests when in dev mode
+if (process.env.NODE_ENV === "dev") {
+  app.addMiddleware(logger);
+}
 
 const staticFolderPath = path.join(__dirname, "..", "public");
 app.addMiddleware(staticFolder(staticFolderPath));
