@@ -9,10 +9,10 @@ services:
       - db-data:/var/lib/postgresql/data/
 
   app:
+    image: denbalogh/yellfest:latest
     depends_on:
       - db
     restart: always
-    build: ./
     ports:
       - ${APP_PORT}:${APP_PORT}
     environment:

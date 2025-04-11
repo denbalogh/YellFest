@@ -1,5 +1,7 @@
 node_modules
 .env
 .DS_Store
+# SSL certificate and private key
+cert 
 # For testing requests
 test.rest

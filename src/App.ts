@@ -1,4 +1,7 @@
-import http, { IncomingMessage, ServerResponse } from "node:http";
+import { IncomingMessage, ServerResponse } from "node:http";
+import https from "https";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 
 export type HttpArgs = [req: IncomingMessage, res: ServerResponse];
 export type MiddlewareFunc = (...args: HttpArgs) => boolean;
@@ -21,8 +24,18 @@ export default class {
       }
     };
 
-    http.createServer(applyMiddlewares).listen(port, () => {
-      console.log(`Server is listening on port: ${port}`);
-    });
+    https
+      .createServer(
+        {
+          key: readFileSync(join(import.meta.dirname, "..", "cert", "key.pem")),
+          cert: readFileSync(
+            join(import.meta.dirname, "..", "cert", "cert.pem"),
+          ),
+        },
+        applyMiddlewares,
+      )
+      .listen(port, () => {
+        console.log(`Server is listening on port: ${port}`);
+      });
   }
 }
