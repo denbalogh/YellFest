@@ -1,7 +1,5 @@
 import { IncomingMessage, ServerResponse } from "node:http";
 import https from "https";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 
 export type HttpArgs = [req: IncomingMessage, res: ServerResponse];
 export type MiddlewareFunc = (...args: HttpArgs) => boolean;
@@ -27,10 +25,8 @@ export default class {
     https
       .createServer(
         {
-          key: readFileSync(join(import.meta.dirname, "..", "cert", "key.pem")),
-          cert: readFileSync(
-            join(import.meta.dirname, "..", "cert", "cert.pem"),
-          ),
+          key: process.env.SSL_KEY,
+          cert: process.env.SSL_CERT,
         },
         applyMiddlewares,
       )
