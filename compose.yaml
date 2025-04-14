@@ -17,6 +17,8 @@ services:
       - ${APP_PORT}:${APP_PORT}
     environment:
       - APP_PORT=${APP_PORT}
+      - SSL_KEY=${SSL_KEY}
+      - SSL_CERT=${SSL_CERT}
       - PGPASSWORD=${PGPASSWORD}
       - PGUSER=${PGUSER}
       - PGHOST=db
